@@ -1,0 +1,38 @@
+from googletrans import Translator 
+import os
+import datetime
+import pyttsx3
+import speech_recognition as sr 
+
+engine = pyttsx3.init()
+
+def talk():
+    r = sr.Recognizer()
+   
+    with sr.Microphone() as source:
+        print("speak")
+        audio = r.listen(source, phrase_time_limit = 5)
+        audio = r.recognize_google(audio, language = 'en-in')
+        print(audio)
+    return audio
+    
+    def speak(audio): 
+    voices = engine.getProperty('voices')
+    engine.setProperty('voice', voices[15].id)
+    engine.setProperty("rate", 150)
+    voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\Languages Known: [b'\x05hi']\hindi"
+    engine.setProperty('voice', 'f6')
+    engine.say(audio)
+    engine.runAndWait()
+    
+    def wishMe():
+    hour=int(datetime.datetime.now().hour)
+    if hour>=0 and hour<12:
+        speak("Good Morning!")
+    elif hour>=12 and hour<18:
+        speak("Good Afternoon!")
+    else:
+        speak("Good evening")
+speak("hello")
+
+wishMe()
